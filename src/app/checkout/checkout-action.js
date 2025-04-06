@@ -21,6 +21,7 @@ const checkoutAction = async (formData) => {
     success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
     cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout`,
   });
+  //   console.log(session);
 
   redirect(session.url);
 };

@@ -27,7 +27,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow">
+    <nav className="sticky top-0 z-50 bg-gray-100 shadow">
       <div className="w-4/5 mx-auto flex items-center justify-between px-4 py-4">
         <Link
           href={"/"}
