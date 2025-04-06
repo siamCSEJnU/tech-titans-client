@@ -2,9 +2,26 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
+import { useCartStore } from "../../store/cart-store";
 
 const ProductDetail = ({ product }) => {
+  const { items, addItem, removeItem } = useCartStore();
   const price = product?.default_price;
+
+  const cartItem = items.find((item) => item.id === product.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
+
+  const onAddItem = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      // description: product.description,
+      imageUrl: product.images ? product.images[0] : null,
+      price: price.unit_amount,
+      quantity: 1,
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
       {product.images && product.images[0] && (
@@ -31,12 +48,19 @@ const ProductDetail = ({ product }) => {
         <div className="flex items-center space-x-4">
           <Button
             variant="outline"
-            //   onClick={() => removeItem(product.id)}
+            onClick={() => removeItem(product.id)}
+            className="cursor-pointer"
           >
             -
           </Button>
-          <span className="text-lg font-semibold">0</span>
-          <Button variant="outline">+</Button>
+          <span className="text-lg font-semibold">{quantity}</span>
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            onClick={onAddItem}
+          >
+            +
+          </Button>
         </div>
       </div>
     </div>

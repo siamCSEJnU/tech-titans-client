@@ -34,7 +34,9 @@ const ProductCard = ({ product }) => {
               ${(price.unit_amount / 100).toFixed(2)}
             </p>
           )}
-          <Button className="mt-4 bg-black text-white">View Details</Button>
+          <Button className="mt-4 bg-black text-white cursor-pointer">
+            View Details
+          </Button>
         </CardContent>
       </Card>
     </Link>
