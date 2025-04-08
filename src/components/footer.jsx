@@ -3,14 +3,19 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="py-10  bg-gray-100 mt-12">
+    <div className="py-10   bg-gray-100 mt-12">
       <div className="w-4/5 mx-auto">
         {/* TOP */}
         <div className="flex flex-col md:flex-row justify-between gap-8">
           {/* LEFT */}
           <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-6">
             <Link href="/">
-              <div className="text-2xl tracking-wide">Tech Titans</div>
+              <div
+                href={"/"}
+                className="hover:text-blue-600  text-2xl tracking-wide font-semibold"
+              >
+                Tech Titans
+              </div>
             </Link>
             <p>30/B/1, Central Plaza, Malibagh, Bangladesh</p>
             <span className="font-semibold">hello@techTitans.dev</span>

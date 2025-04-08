@@ -9,7 +9,7 @@ const checkoutAction = async (formData) => {
     price_data: {
       currency: "usd",
       product_data: { name: item.name },
-      unit_amount: item.price,
+      unit_amount: Math.round(Number(item.price) * 100),
     },
     quantity: item.quantity,
   }));
@@ -21,7 +21,7 @@ const checkoutAction = async (formData) => {
     success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
     cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout`,
   });
-  //   console.log(session);
+  // console.log(session.id);
 
   redirect(session.url);
 };

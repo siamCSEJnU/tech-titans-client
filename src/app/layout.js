@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="flex min-h-full flex-col bg-white">
         <Navbar />
-        <main className="flex-grow w-4/5 mx-auto px-4 py-8">{children}</main>
+        <main className="flex-grow  w-4/5 mx-auto px-4 py-8">{children}</main>
         <Footer />
       </body>
     </html>

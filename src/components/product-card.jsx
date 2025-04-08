@@ -5,16 +5,20 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 
 const ProductCard = ({ product }) => {
-  const price = product?.default_price;
+  const price = product?.price;
   return (
     <Link href={`/products/${product.id}`} className="block h-full">
       <Card className="group hover:shadow-2xl transition duration-300 py-0 h-full flex flex-col border-gray-300 gap-0">
-        {product.images && product.images[0] && (
+        {product.image && (
           <div className="relative h-60 w-full">
             <Image
-              src={product.images[0]}
-              alt={product.name}
+              src={product?.image?.replace("localhost", "127.0.0.1")}
+              alt={product?.name}
               layout="fill"
+              // sizes="(max-width: 768px) 100vw, 500px"
+              // priority={true}
+              // width={400}
+              // height={200}
               objectFit="cover"
               className="group-hover:opacity-90 transition-opacity duration-300 rounded-t-lg"
             />
@@ -22,17 +26,15 @@ const ProductCard = ({ product }) => {
         )}
         <CardHeader className="p-4">
           <CardTitle className="text-xl font-bold text-gray-800">
-            {product.name}
+            {product?.name}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4 flex-grow flex flex-col justify-between">
-          {product.description && (
+          {product?.description && (
             <p className="text-gray-600 text-sm mb-2">{product.description}</p>
           )}
-          {price && price.unit_amount && (
-            <p className="text-lg font-semibold text-gray-900">
-              ${(price.unit_amount / 100).toFixed(2)}
-            </p>
+          {price && price && (
+            <p className="text-lg font-semibold text-gray-900">${price}</p>
           )}
           <Button className="mt-4 bg-black text-white cursor-pointer">
             View Details
