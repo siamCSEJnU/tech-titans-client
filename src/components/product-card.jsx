@@ -3,16 +3,20 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { slugify } from "@/lib/slugify";
 
 const ProductCard = ({ product }) => {
   const price = product?.price;
   return (
-    <Link href={`/products/${product.id}`} className="block h-full">
-      <Card className="group hover:shadow-2xl transition duration-300 py-0 h-full flex flex-col border-gray-300 gap-0">
+    <Link
+      href={`/products/${product?.id}-${slugify(product?.name)}`}
+      className="block h-full"
+    >
+      <Card className="group hover:shadow-2xl transition duration-300 py-0 h-full flex flex-col border-gray-300 gap-0 bg-gray-100">
         {product.image && (
           <div className="relative h-60 w-full">
             <Image
-              src={product?.image?.replace("localhost", "127.0.0.1")}
+              src={`${product?.image?.replace("localhost", "127.0.0.1")}`}
               alt={product?.name}
               layout="fill"
               // sizes="(max-width: 768px) 100vw, 500px"

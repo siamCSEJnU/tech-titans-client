@@ -14,7 +14,7 @@ const CheckoutPage = () => {
   );
   if (totalPrice === 0 || items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8 md:mb-12 md:mt-2  text-center">
+      <div className="container mx-auto px-4 py-8 md:mb-12 md:mt-2  text-center ">
         <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
         <Link href="/products">
           <Button className="  cursor-pointer bg-gray-500">
@@ -26,9 +26,9 @@ const CheckoutPage = () => {
     );
   }
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8  rounded-sm">
       <h1 className="text-3xl font-bold mb-8 text-center"> Checkout</h1>
-      <Card className="max-w-md mx-auto mb-8">
+      <Card className="max-w-md mx-auto mb-8 bg-gray-100">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Order Summary</CardTitle>
         </CardHeader>

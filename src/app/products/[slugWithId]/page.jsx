@@ -1,10 +1,13 @@
 import ProductDetail from "@/components/product-detail";
 import { fetchSingleProduct } from "@/lib/api";
-import { stripe } from "@/lib/stripe";
+// import { stripe } from "@/lib/stripe";
 import React from "react";
 
 const ProductPage = async ({ params }) => {
-  const { id } = await params;
+  const p = await params;
+  const { slugWithId } = await p;
+  const id = slugWithId.split("-")[0]; // Extract the ID from the slug
+
   const product = await fetchSingleProduct(id);
   if (!product) {
     return (

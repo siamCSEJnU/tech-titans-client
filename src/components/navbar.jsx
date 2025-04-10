@@ -13,6 +13,8 @@ import Image from "next/image";
 import { fetchAllCategories } from "@/lib/api";
 import { slugify } from "@/lib/slugify";
 import { usePathname, useRouter } from "next/navigation";
+import CategoryLinks from "./category-links";
+import { useAuthStore } from "../../store/authStore";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -25,6 +27,15 @@ const Navbar = () => {
 
   const { items } = useCartStore();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+
+  const { token, logout, avatar, setAvatar } = useAuthStore();
+  const isLoggedIn = !!token;
+
+  const handleLogout = () => {
+    logout();
+    setAvatar(null);
+    router.push("/login");
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,8 +65,10 @@ const Navbar = () => {
           : `${pathname}?search=${encodeURIComponent(searchTerm)}`;
 
       router.push(targetPath);
+      setSearchTerm("");
     }
   };
+  // console.log(avatar);
 
   return (
     <nav className="sticky top-0 z-50 bg-gray-100 shadow">
@@ -97,13 +110,41 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
-            <Image
-              src="/profile.png"
-              width={22}
-              height={22}
-              alt="Profile"
-              className="rounded-full"
-            />
+            {isLoggedIn ? (
+              <>
+                <div className="flex items-center space-x-2">
+                  <Image
+                    src={avatar || "/profile.png"}
+                    width={28}
+                    height={28}
+                    alt="Profile"
+                    className="rounded-full border-2 border-gray-300 cursor-pointer"
+                  />
+                  <Button
+                    variant="ghost"
+                    onClick={handleLogout}
+                    className="text-gray-700 hover:text-red-600 cursor-pointer"
+                  >
+                    LogOut
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/login"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -122,35 +163,7 @@ const Navbar = () => {
       </div>
 
       {/* Second Row: Nav Links */}
-      <div className="w-4/5 mx-auto hidden md:flex justify-center items-center space-x-4 px-4 py-2 bg-white border-t">
-        <Link
-          href="/"
-          className="text-sm text-white p-2 rounded-sm bg-gray-500 hover:bg-gray-600"
-        >
-          Home
-        </Link>
-        <Link
-          href="/products"
-          className="text-sm text-white p-2 rounded-sm bg-gray-500 hover:bg-gray-600"
-        >
-          All Products
-        </Link>
-        <Link
-          href="/checkout"
-          className="text-sm text-white p-2 rounded-sm bg-gray-500 hover:bg-gray-600"
-        >
-          Checkout
-        </Link>
-        {categories.map((cat) => (
-          <Link
-            key={cat?.id}
-            href={`/category/${slugify(cat?.name)}`}
-            className="text-sm text-white p-2 rounded-sm bg-gray-500 hover:bg-gray-600"
-          >
-            {cat.name}
-          </Link>
-        ))}
-      </div>
+      <CategoryLinks categories={categories} />
 
       {/* Mobile Menu */}
       {mobileOpen && (

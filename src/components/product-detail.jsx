@@ -23,11 +23,12 @@ const ProductDetail = ({ product }) => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
+    <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center bg-gray-100 rounded-sm">
       {product.image && (
         <div className="relative h-96 w-full md:w-1/2 rounded-lg overflow-hidden">
           <Image
-            src={product?.image?.replace("localhost", "127.0.0.1")}
+            priority
+            src={`${product?.image?.replace("localhost", "127.0.0.1")}`}
             alt={product?.name}
             layout="fill"
             // sizes="(max-width: 768px) 100vw, 500px"

@@ -8,7 +8,7 @@ const ProductsList = ({ products }) => {
   const searchTerm = searchParams.get("search") || "";
 
   const filteredProducts = products.filter((product) => {
-    const term = searchTerm.toLowerCase();
+    const term = searchTerm?.toLowerCase();
     const nameMatch = product?.name?.toLowerCase().includes(term);
     const descriptionMatch = product?.description?.toLowerCase().includes(term);
     return nameMatch || descriptionMatch;
