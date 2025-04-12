@@ -8,8 +8,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImSpinner4 } from "react-icons/im";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import { useAuthStore } from "../../../store/authStore";
+
 import SocialLogin from "./components/SocialLogin";
+import { useAuthStore } from "../../../../store/authStore";
+import { useWishlistStore } from "../../../../store/wishlist-store";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -17,7 +19,8 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isLoading, error, setIntendedPath } = useAuthStore();
+  const { login, isLoading, error, setIntendedPath, getMe } = useAuthStore();
+  const { fetchWishlist } = useWishlistStore();
 
   useEffect(() => {
     const intended = searchParams.get("redirect") || "/";
@@ -26,11 +29,17 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       await login(email, password);
+      await getMe();
+      // const userData = useAuthStore.getState().user;
+      // console.log(userData);
+
       toast.success("Login successful!", {
         autoClose: 1000,
       });
+      fetchWishlist(email);
       router.push(useAuthStore.getState().intendedPath || "/"); // Use intended path
       setIntendedPath("/"); // Reset after use
     } catch (error) {

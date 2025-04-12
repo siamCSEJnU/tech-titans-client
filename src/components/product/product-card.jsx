@@ -1,11 +1,14 @@
 import Link from "next/link";
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import Image from "next/image";
-import { Button } from "./ui/button";
+
 import { slugify } from "@/lib/slugify";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const ProductCard = ({ product }) => {
+  // console.log(product);
+
   const price = product?.price;
   return (
     <Link

@@ -1,7 +1,9 @@
 import React from "react";
-import ProductsList from "@/components/products-list";
-import { fetchAllCategories, fetchAllProducts } from "@/lib/api";
+import ProductsList from "@/components/product/products-list";
+
 import { slugify } from "@/lib/slugify";
+import { fetchAllCategories } from "@/lib/apis/category-api";
+import { fetchAllProducts } from "@/lib/apis/product-api";
 
 const CategoryProductsPage = async ({ params }) => {
   const p = await params;
@@ -13,9 +15,17 @@ const CategoryProductsPage = async ({ params }) => {
     (cat) => slugify(cat?.name) === decodedCategoryName
   );
   const categoryId = category?.id;
+  // Find child categories
+  const subCategoryIds = categories
+    ?.filter((cat) => cat?.parent_id === categoryId)
+    .map((cat) => cat?.id);
+
+  // include both parent(selected) and its subcategories
+  const validCategoryIds = [categoryId, ...subCategoryIds];
+
   const allProducts = await fetchAllProducts();
-  const products = allProducts?.filter(
-    (product) => product?.category_id === categoryId
+  const products = allProducts?.filter((product) =>
+    validCategoryIds.includes(product?.category_id)
   );
 
   return (

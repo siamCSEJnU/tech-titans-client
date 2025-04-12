@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion, easeOut } from "framer-motion";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -44,7 +44,7 @@ const Banner = () => {
           <Button className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-black text-white">
             <Link
               href="/products"
-              className="inline-flex items-center justify-center rounded-full px-6 py-3"
+              className="inline-flex items-center justify-center rounded-full px-6 py-3 cursor-pointer"
             >
               Browse All Products
             </Link>

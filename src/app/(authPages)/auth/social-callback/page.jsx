@@ -1,9 +1,10 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { PropagateLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import { useAuthStore } from "../../../../store/authStore";
+import { useAuthStore } from "../../../../../store/authStore";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import Cookies from "js-cookie";
 
 const SocialCallbackPage = () => {
   const router = useRouter();
@@ -34,16 +35,17 @@ const SocialCallbackPage = () => {
 
     // Set the token in the store
     setToken(token);
+    //set the token in the cookies also
+    Cookies.set("auth-token", token);
     // Set temporary avatar while fetching full user data
     if (avatarUrl) {
       setAvatar(avatarUrl);
     }
 
-    // Fetch user data
+    //Fetch user data
     getMe()
       .then(() => {
         router.push(intended); // Use intended path
-        setIntendedPath("/"); // Reset after use
       })
       .catch((err) => {
         toast.error("Failed to load user data");
@@ -52,9 +54,9 @@ const SocialCallbackPage = () => {
   }, [searchParams, router, setToken, getMe, intendedPath, setIntendedPath]);
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <PropagateLoader size={25} color="#4A5565" />
-    </div>
+    <>
+      <LoadingSpinner></LoadingSpinner>
+    </>
   );
 };
 

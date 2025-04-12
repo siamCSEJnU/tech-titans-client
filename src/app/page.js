@@ -1,8 +1,9 @@
 // import { stripe } from "@/lib/stripe";
 
-import Carousel from "@/components/carousel";
-import { fetchAllProducts } from "@/lib/api";
-import Banner from "@/components/banner";
+import Carousel from "@/components/home/carousel";
+
+import Banner from "@/components/home/banner";
+import { fetchAllProducts } from "@/lib/apis/product-api";
 
 export default async function Home() {
   // const products = await stripe.products.list({

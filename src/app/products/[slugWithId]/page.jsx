@@ -1,5 +1,6 @@
-import ProductDetail from "@/components/product-detail";
-import { fetchSingleProduct } from "@/lib/api";
+import ProductDetail from "@/components/product/product-detail";
+import { fetchSingleProduct } from "@/lib/apis/product-api";
+
 // import { stripe } from "@/lib/stripe";
 import React from "react";
 

@@ -39,7 +39,7 @@ const CheckoutPage = () => {
                 <div className="flex justify-between">
                   <span className="font-medium">{item?.name}</span>
                   <span className="font-semibold">
-                    ${item.price * item.quantity}
+                    ${(item.price * item.quantity).toFixed(2)}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -66,7 +66,7 @@ const CheckoutPage = () => {
             ))}
           </ul>
           <div className="mt-4 border-t pt-2 text-lg font-semibold">
-            Total :${totalPrice}{" "}
+            Total :${totalPrice.toFixed(2)}{" "}
           </div>
         </CardContent>
       </Card>

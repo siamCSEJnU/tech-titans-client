@@ -1,5 +1,6 @@
-import ProductsList from "@/components/products-list";
-import { fetchAllProducts } from "@/lib/api";
+import ProductsList from "@/components/product/products-list";
+import { fetchAllProducts } from "@/lib/apis/product-api";
+
 // import { stripe } from "@/lib/stripe";
 import React from "react";
 

@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -37,6 +38,7 @@ export const useAuthStore = create(
 
           const { access_token } = await res.json();
           set({ token: access_token, isLoading: false });
+          Cookies.set("auth-token", access_token);
           return access_token;
         } catch (error) {
           set({ isLoading: false, error: error.message });
@@ -52,7 +54,9 @@ export const useAuthStore = create(
           error: null,
           intendedPath: "/",
         });
-        // localStorage.removeItem("auth-storage"); // Clear the persisted state
+        localStorage.removeItem("auth-storage"); // Clear the persisted state
+        Cookies.remove("auth-token");
+        localStorage.removeItem("avatar_url");
       },
 
       isAuthenticated: () => {
@@ -77,6 +81,7 @@ export const useAuthStore = create(
 
           const user = await res.json();
           set({ user });
+          return user;
         } catch (err) {
           console.error(err);
           set({ error: err.message });

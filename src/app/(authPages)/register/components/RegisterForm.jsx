@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useRegistrationSore } from "../../../../store/registration-store";
+import { useRegistrationSore } from "../../../../../store/registration-store";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -78,7 +78,7 @@ const RegisterForm = () => {
       };
 
       const response = await registerUser(userData);
-      console.log(response);
+      // console.log(response);
 
       toast.success("Registration successful!", { autoClose: 1000 });
       useRegistrationSore.getState().resetForm(); // Reset form state after successful registration
