@@ -7,13 +7,19 @@ import PaymentHistoryTable from "@/components/dashboard/PaymentHistoryTable";
 import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/dashboard/Sidebar";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { useRouter } from "next/navigation";
 
 const UserDashboard = () => {
-  const { user } = useAuthStore();
+  const { user, intendedPath, setIntendedPath } = useAuthStore();
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
+    if (intendedPath === "/checkout") {
+      router.push("user-dashboard");
+      setIntendedPath("/");
+    }
     const fetchHistory = async () => {
       if (user?.email) {
         try {
@@ -28,7 +34,7 @@ const UserDashboard = () => {
 
     fetchHistory();
   }, [user?.email]);
-  console.log(payments);
+  // console.log(payments);
 
   return (
     <div className="flex-1 p-6">

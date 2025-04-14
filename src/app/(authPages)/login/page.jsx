@@ -19,12 +19,15 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isLoading, error, setIntendedPath, getMe } = useAuthStore();
+  const { login, isLoading, error, setIntendedPath, getMe, intendedPath } =
+    useAuthStore();
   const { fetchWishlist } = useWishlistStore();
 
   useEffect(() => {
-    const intended = searchParams.get("redirect") || "/";
-    setIntendedPath(intended);
+    if (!intendedPath.includes("/products")) {
+      const intended = searchParams.get("redirect") || "/";
+      setIntendedPath(intended);
+    }
   }, [searchParams, setIntendedPath]);
 
   const handleSubmit = async (e) => {

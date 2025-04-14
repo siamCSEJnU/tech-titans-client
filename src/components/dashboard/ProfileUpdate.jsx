@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "../../../store/authStore";
 import { updateProfile } from "@/lib/apis/user-api";
@@ -13,7 +13,7 @@ import { ImSpinner4 } from "react-icons/im";
 
 const ProfileUpdateForm = () => {
   const router = useRouter();
-  const { user, setUser } = useAuthStore();
+  const { user, setUser, intendedPath } = useAuthStore();
 
   const [isUpdating, setIsUpdating] = useState(false);
   // Local state for form fields; pre-populate with current user data.
@@ -70,13 +70,18 @@ const ProfileUpdateForm = () => {
 
     try {
       const res = await updateProfile(profileData);
-      toast.success("Profile updated successfully!");
+      const updatedUser = res?.data?.user;
+
+      toast.success("Profile updated successfully!", { autoClose: 1000 });
+      // console.log(updatedUser);
+
       setIsUpdating(false);
-      if (res.user) {
-        setUser(res.user);
+      if (updatedUser) {
+        setUser(updatedUser);
+        router.push(intendedPath);
+      } else {
+        router.push("/user-dashboard");
       }
-      // Optionally, redirect or simply show updated state.
-      router.push("/user-dashboard");
     } catch (error) {
       toast.error(error.message || "Profile update failed. Please try again.", {
         autoClose: 1500,

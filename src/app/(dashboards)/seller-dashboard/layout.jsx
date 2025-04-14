@@ -1,10 +1,10 @@
 "use client";
 
-import Sidebar from "@/components/dashboard/Sidebar";
 import { Button } from "@/components/ui/button";
 import React, { useState, useEffect } from "react";
+import Sidebar from "./components/Sidebar";
 
-export default function DashboardLayout({ children }) {
+export default function SellerDashboardLayout({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleCloseSidebar = () => setMobileOpen(false);

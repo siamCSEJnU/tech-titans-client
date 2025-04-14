@@ -24,11 +24,6 @@ const MobileMenu = ({ groupedCategories }) => {
           </Link>
         </li>
         <li>
-          <Link href="/checkout" className="block hover:text-blue-600">
-            Checkout
-          </Link>
-        </li>
-        <li>
           <Link href="/wishlist" className="block hover:text-pink-500">
             Wishlist
           </Link>

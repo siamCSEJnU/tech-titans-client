@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
-import { useAuthStore } from "../../../store/authStore";
-import { Button } from "../ui/button";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
+import { useAuthStore } from "../../../../../store/authStore";
+import { Button } from "@/components/ui/button";
 import { HomeIcon } from "@heroicons/react/24/outline";
 
 const Sidebar = ({ onClose }) => {
@@ -36,32 +37,24 @@ const Sidebar = ({ onClose }) => {
           alt="User"
           className="w-20 h-20 rounded-full mb-3 object-cover border-2 border-white"
         />
-        <h2 className="text-lg font-semibold text-center">{user?.name}</h2>
+        <h2 className="text-xl   font-semibold text-center">{user?.name}</h2>
       </div>
 
-      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-        <Link href="/user-dashboard/update-profile" onClick={onClose}>
+      <nav className="flex-1 p-4 space-y-2 flex flex-col items-center overflow-y-auto">
+        <Link href="/seller-dashboard" onClick={onClose}>
           <Button
             variant="ghost"
             className="w-full justify-start cursor-pointer"
           >
-            Update Profile
+            Manage Products
           </Button>
         </Link>
-        <Link href="/user-dashboard" onClick={onClose}>
+        <Link href="/seller-dashboard/upload-product" onClick={onClose}>
           <Button
             variant="ghost"
             className="w-full justify-start cursor-pointer"
           >
-            Payment History
-          </Button>
-        </Link>
-        <Link href="/user-dashboard/wishlist" onClick={onClose}>
-          <Button
-            variant="ghost"
-            className="w-full justify-start cursor-pointer"
-          >
-            Wishlist
+            Upload Products
           </Button>
         </Link>
         <div className="mt-4">
@@ -72,7 +65,16 @@ const Sidebar = ({ onClose }) => {
             </Button>
           </Link>
         </div>
-        <div className="p-4 mt-14">
+        {/* <Link href="/user-dashboard/wishlist" onClick={onClose}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start cursor-pointer"
+          >
+            Wishlist
+          </Button>
+        </Link> */}
+
+        <div className="p-4 mt-20">
           <Button
             onClick={handleLogout}
             className="w-full bg-red-600 hover:bg-red-500 cursor-pointer"

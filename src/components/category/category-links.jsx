@@ -17,13 +17,6 @@ const CategoryLinks = ({ groupedCategories }) => {
       >
         All Products
       </Link>
-      <Link
-        href="/checkout"
-        className="text-sm text-white p-2 rounded-sm bg-gray-500 hover:bg-gray-600"
-      >
-        Checkout
-      </Link>
-
       {/* Loop over groupedCategories */}
       {Object.values(groupedCategories).map((cat) => (
         <div key={cat.id} className="relative group">

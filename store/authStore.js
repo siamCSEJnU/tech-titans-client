@@ -53,10 +53,11 @@ export const useAuthStore = create(
           isLoading: false,
           error: null,
           intendedPath: "/",
+          avatar: null,
         });
+        // setAvatar(null);
         localStorage.removeItem("auth-storage"); // Clear the persisted state
         Cookies.remove("auth-token");
-        localStorage.removeItem("avatar_url");
       },
 
       isAuthenticated: () => {
